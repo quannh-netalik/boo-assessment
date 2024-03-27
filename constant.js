@@ -71,24 +71,9 @@ const ZODIAC = Object.freeze({
   Pisces: "Pisces",
 });
 
-const defaultProfile = Object.freeze({
-  _id: "507f191e810c19729de860ea",
-  name: "A Martinez",
-  description: "Adolph Larrue Martinez III.",
-  mbti: MBTI.ISFJ,
-  enneagram: "9w3",
-  variant: "sp/so",
-  tritype: 725,
-  socionics: "SEE",
-  sloan: "RCOEN",
-  psyche: "FEVL",
-  temperaments: "TEMP",
-});
-
 module.exports = {
   MBTI,
   MBTIValues,
   ENNEAGRAM,
   ZODIAC,
-  defaultProfile,
 };

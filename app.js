@@ -4,10 +4,14 @@ const express = require("express");
 const mongoose = require("mongoose");
 const { MongoMemoryServer } = require("mongodb-memory-server");
 
-const { Profile } = require("./models");
-const { defaultProfile } = require("./constant");
 const routes = require("./routes");
 const { notFound, errorHandler } = require("./middlewares");
+const { Profile, User, Comment } = require("./models");
+const {
+  defaultProfiles,
+  defaultUsers,
+  defaultComments,
+} = require("./dumpData");
 
 const bootstrap = async () => {
   const app = express();
@@ -16,8 +20,14 @@ const bootstrap = async () => {
   const mongoServer = await MongoMemoryServer.create();
   await mongoose.connect(mongoServer.getUri(), { dbName: "boo_assessments" });
 
-  // Create initial profile
-  await Profile.create(defaultProfile);
+  // Create dump data
+  if (process.env.NODE_ENV === "dev") {
+    await Promise.all(
+      defaultProfiles.map((profile) => Profile.create(profile)),
+      defaultUsers.map((user) => User.create(user)),
+      defaultComments.map((comment) => Comment.create(comment))
+    );
+  }
 
   // set the view engine to ejs
   app.set("view engine", "ejs");

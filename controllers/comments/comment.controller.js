@@ -8,7 +8,7 @@ const errors = require("../../errors");
  * @param  {express.Response} res
  */
 const listComments = async (req, res) => {
-  const { comments, err } = await commentService.listComments();
+  const { comments, err } = await commentService.listComments(req.query);
   if (err) {
     return res.status(errors.serverError.status).send(errors.serverError);
   }

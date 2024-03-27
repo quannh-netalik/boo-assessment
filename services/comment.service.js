@@ -1,11 +1,25 @@
 const { Comment } = require("../models");
 
+const _queryBuilder = (query) => {
+  const _query = {
+    ...(query.profileId && { profileId: query.profileId }),
+    ...(query.mbti && { mbti: query.mbti }),
+    ...(query.enneagram && { enneagram: query.enneagram }),
+    ...(query.zodiac && { zodiac: query.zodiac }),
+    ...(query.userId && { userId: query.userId }),
+  };
+  
+  return _query;
+};
+
 /**
+ * @param {Object} query
  * @returns {Promise<Comment[]>}
  */
-const listComments = async () => {
+const listComments = async (query) => {
+  const _query = _queryBuilder(query);
   try {
-    const comments = await Comment.find();
+    const comments = await Comment.find(_query);
     return { comments };
   } catch (err) {
     return { err };
