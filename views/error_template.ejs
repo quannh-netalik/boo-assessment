@@ -1,0 +1,35 @@
+<%- include('partials/prologue.ejs', {title: `${code} MBTI | Boo Personality
+Database`, description: `What is ${code}'s MBTI personality type? Find out what
+${code}'s Myers Briggs, Enneagram, and Zodiac sign are in the Soulverse, the
+MBTI personality database of celebrities and fictional characters.`}) %>
+
+<div class="row sqs-row">
+  <div class="col sqs-col-10 sqs-col-page">
+    <div
+      class="sqs-block html-block sqs-block-html"
+      data-block-type="2"
+      id="block-2e6206ba777e9c6841a8"
+    >
+      <div class="sqs-block-content">
+        <h2 class="name">
+          <%= code %>
+          <span style="color: rgb(234, 47, 47); font-weight: bold"
+            ><%= status %></span
+          >
+        </h2>
+      </div>
+    </div>
+
+    <div
+      class="sqs-block html-block sqs-block-html"
+      data-block-type="2"
+      id="block-8d8156722d8e328e16b8"
+    >
+      <div class="sqs-block-content">
+        <p class="" style="white-space: pre-wrap">Error</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/epilogue.ejs') %>
