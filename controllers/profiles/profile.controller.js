@@ -32,7 +32,11 @@ const getProfileById = async (req, res) => {
   return res.status(200).send(profile);
 };
 
-const listProfile = async (req, res) => {
+/**
+ * @param {express.Request} req
+ * @param  {express.Response} res
+ */
+const listProfile = async (_, res) => {
   const { profiles, err } = await profileService.listProfile();
 
   if (err) {

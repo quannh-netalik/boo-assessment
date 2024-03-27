@@ -2,6 +2,62 @@ const mongoose = require("mongoose");
 const { Comment, Like } = require("../models");
 
 /**
+ *
+ * @param {Object} query
+ * @param {Array} aggregates
+ */
+const _queryBuilder = (query, aggregates) => {
+  if (query.profileId) {
+    aggregates.push({ $match: { profileId: query.profileId } });
+  }
+  if (query.mbti) {
+    aggregates.push({ $match: { mbti: query.mbti } });
+  }
+  if (query.enneagram) {
+    aggregates.push({ $match: { enneagram: query.enneagram } });
+  }
+  if (query.zodiac) {
+    aggregates.push({ $match: { zodiac: query.zodiac } });
+  }
+  if (query.userId) {
+    aggregates.push({ $match: { userId: query.userId } });
+  }
+};
+
+/**
+ *
+ * @param {Object} query
+ * @param {Array} aggregates
+ */
+const _sortBuilder = (sort, aggregates) => {
+  // Sort
+  // required format: ?sort[field]=(1 | -1)&...
+  // ex: sort[createdAt]=1
+  // default sort createdAt descending
+  aggregates.push({
+    $sort: {
+      createdAt: sort.createdAt ? Number(sort.createdAt) : -1,
+    },
+  });
+
+  if (sort.numberOfLike) {
+    aggregates.push({
+      $sort: {
+        numberOfLike: Number(sort.numberOfLike),
+      },
+    });
+  }
+
+  if (sort.mbti) {
+    aggregates.push({
+      $sort: {
+        mbti: Number(sort.mbti),
+      },
+    });
+  }
+};
+
+/**
  * @returns {Promise<Comment>}
  */
 const getCommentById = async (_id) => {
@@ -20,21 +76,12 @@ const getCommentById = async (_id) => {
 const listComments = async (query) => {
   const aggregates = [];
 
-  // Query builder
-  if (query.profileId) {
-    aggregates.push({ $match: { profileId: query.profileId } });
-  }
-  if (query.mbti) {
-    aggregates.push({ $match: { mbti: query.mbti } });
-  }
-  if (query.enneagram) {
-    aggregates.push({ $match: { enneagram: query.enneagram } });
-  }
-  if (query.zodiac) {
-    aggregates.push({ $match: { zodiac: query.zodiac } });
-  }
-  if (query.userId) {
-    aggregates.push({ $match: { userId: query.userId } });
+  // build query
+  _queryBuilder(query, aggregates);
+
+  if (query.sort) {
+    // build sort
+    _sortBuilder(query.sort, aggregates);
   }
 
   // Join profiles collection then unwind
@@ -74,6 +121,7 @@ const listComments = async (query) => {
       "profile.mbti": 1,
       "profile.enneagram": 1,
       "profile.image": 1,
+      createdAt: 1,
     },
   });
 
@@ -115,7 +163,38 @@ const likeComment = async (data) => {
       return { comment: null };
     }
 
-    // Cannot use transaction cause quite complicated to setup replica for mongodb
+    /**
+     * Cannot use transaction cause quite complicated to setup replica for mongodb
+     */
+
+    // 1. Check whether like record has been created
+    const _like = await Like.findOne({
+      commentId: comment._id,
+      userId: data.userId,
+    });
+
+    // 2. If record found
+    // -> remove from comment
+    // -> delete like record
+    if (!!_like) {
+      const updatedComment = await Comment.findOneAndUpdate(
+        { _id: comment._id },
+        {
+          $inc: {
+            numberOfLike: -1,
+          },
+          $pull: {
+            likeIds: _like._id,
+          },
+        },
+        { new: true }
+      );
+      await Like.deleteOne({ _id: _like._id });
+
+      return { comment: updatedComment };
+    }
+
+    // 3. If record not existed -> create like record then attach to comment
     const like = await Like.create(data);
     const updatedComment = await Comment.findOneAndUpdate(
       { _id: comment._id },

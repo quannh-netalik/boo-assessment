@@ -57,6 +57,7 @@ const defaultComments = Object.freeze([
     enneagram: "3w4",
     zodiac: ZODIAC.Leo,
     userId: "6603d3efcf18a1912ad8b1bb",
+    createdAt: "2023-03-27T09:51:06.777Z",
   },
   {
     _id: "6603e515f38ac48939320dfc",
@@ -66,6 +67,7 @@ const defaultComments = Object.freeze([
     enneagram: "2w3",
     zodiac: ZODIAC.Aries,
     userId: "6603d3efcf18a1912ad8b1bc",
+    createdAt: "2022-03-27T09:51:06.777Z",
   },
   {
     _id: "6603e515f38ac48939320dfa",
@@ -75,6 +77,7 @@ const defaultComments = Object.freeze([
     enneagram: "8w9",
     zodiac: ZODIAC.Taurus,
     userId: "6603d3efcf18a1912ad8b1bd",
+    createdAt: "2021-03-27T09:51:06.777Z",
   },
 ]);
 
