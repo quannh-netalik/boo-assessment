@@ -1,51 +1,28 @@
-const expressValidator = require("express-validator");
-const { MBTIValues } = require("../../constant");
+const { body } = require("express-validator");
+const { MBTIValues, ENNEAGRAM } = require("../../constant");
 
-const validate = [
-  expressValidator
-    .body("name")
-    .isString()
-    .notEmpty()
-    .withMessage("name is required"),
-  expressValidator
-    .body("description")
+const validateCreateProfile = [
+  body("name").isString().notEmpty().withMessage("name is required"),
+  body("description")
     .isString()
     .notEmpty()
     .withMessage("description is required"),
-  expressValidator
-    .body("mbti")
-    .isIn(MBTIValues)
-    .notEmpty()
-    .withMessage("mbti is required"),
-  expressValidator
-    .body("enneagram")
-    .isString()
+  body("mbti").isIn(MBTIValues).notEmpty().withMessage("mbti is required"),
+  body("enneagram")
+    .isIn(ENNEAGRAM)
     .notEmpty()
     .withMessage("enneagram is required"),
-  expressValidator
-    .body("variant")
-    .isString()
-    .notEmpty()
-    .withMessage("variant is required"),
-  expressValidator
-    .body("tritype")
-    .isNumeric()
-    .notEmpty()
-    .withMessage("tritype is required"),
-  expressValidator
-    .body("socionics")
-    .isString()
-    .notEmpty()
-    .withMessage("socionics is required"),
-  expressValidator.body("sloan").notEmpty().withMessage("sloan is required"),
-  expressValidator.body("psyche").notEmpty().withMessage("psyche is required"),
-  expressValidator
-    .body("temperaments")
+  body("variant").isString().notEmpty().withMessage("variant is required"),
+  body("tritype").isNumeric().notEmpty().withMessage("tritype is required"),
+  body("socionics").isString().notEmpty().withMessage("socionics is required"),
+  body("sloan").notEmpty().withMessage("sloan is required"),
+  body("psyche").notEmpty().withMessage("psyche is required"),
+  body("temperaments")
     .isString()
     .notEmpty()
     .withMessage("temperaments is required"),
 ];
 
 module.exports = {
-  validate,
+  validateCreateProfile,
 };

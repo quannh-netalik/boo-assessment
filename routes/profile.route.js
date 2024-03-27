@@ -18,7 +18,7 @@ const profileRouter = (prefix) => {
 
   router.post(
     "/",
-    profileValidator.validate,
+    profileValidator.validateCreateProfile,
     validateRequest,
     profileController.createProfile
   );

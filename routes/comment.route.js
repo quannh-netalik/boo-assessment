@@ -1,7 +1,7 @@
 const express = require("express");
 
 const { validateRequest } = require("../middlewares/validator");
-const { profileValidator, profileController } = require("../controllers");
+const { commentValidator, commentController } = require("../controllers");
 
 const router = express.Router();
 
@@ -11,6 +11,13 @@ const router = express.Router();
  */
 const commentRouter = (prefix) => {
   prefix.use("/comment", router);
+
+  router.post(
+    "/",
+    commentValidator.validatePostComment,
+    validateRequest,
+    commentController.postComment
+  );
 };
 
 module.exports = commentRouter;

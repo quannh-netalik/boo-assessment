@@ -16,7 +16,7 @@ const userRoute = (prefix) => {
 
   router.post(
     "/",
-    userValidator.validate,
+    userValidator.validateCreateUser,
     validateRequest,
     userController.createUser
   );
