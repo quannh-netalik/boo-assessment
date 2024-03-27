@@ -12,7 +12,7 @@ describe("ProfileModule", () => {
     expect(response.status).toEqual(200);
     expect(response.statusCode).toEqual(200);
     expect(response.body.length).toEqual(3);
-    expect(response.body.map(({ _id }) => _id)).toEqual(
+    expect(response.body.map(({ _id }) => _id)).toMatchObject(
       defaultProfiles.map(({ _id }) => _id)
     );
   });

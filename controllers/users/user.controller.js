@@ -26,7 +26,7 @@ const createUser = async (req, res) => {
     return res.status(errors.serverError.status).send(errors.serverError);
   }
 
-  return res.status(200).send(user);
+  return res.status(201).send(user);
 };
 
 module.exports = {
