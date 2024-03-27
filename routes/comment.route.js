@@ -14,8 +14,6 @@ const commentRouter = (prefix) => {
 
   router.get("/", commentController.listComments);
 
-  router.get("/:_id/like", commentController.listLikeComment);
-
   router.post(
     "/:_id/like",
     commentValidator.validateLikeComment,

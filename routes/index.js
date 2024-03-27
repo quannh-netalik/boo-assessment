@@ -6,16 +6,10 @@ const commentRoute = require("./comment.route");
 const userRoute = require("./user.route");
 
 const router = express.Router();
+const pathRegistrar = [profileRouter, commentRoute, userRoute];
 
 module.exports = function () {
-  /** /profile */
-  profileRouter(router);
-
-  /** /comment */
-  commentRoute(router);
-
-  /** /user */
-  userRoute(router);
+  pathRegistrar.forEach((path) => path(router));
 
   return router;
 };
