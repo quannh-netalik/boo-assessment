@@ -30,13 +30,21 @@ npm run test
 
 ## APIs
 
-| Method   | Path                      | Description              |
-| -------- | ------------------------- | ------------------------ |
-| **GET**  | /profile/_:profileId_     | Get profile by profileID |
-| **GET**  | /profile                  | Get profile list         |
-| **POST** | /profile                  | Create new profile       |
-| **GET**  | /user                     | Get user list            |
-| **POST** | /user                     | Create new user          |
-| **GET**  | /comment                  | Get comment lists        |
-| **POST** | /comment                  | Create new comment       |
+| Method   | Path                       | Description              |
+| -------- | -------------------------- | ------------------------ |
+| **GET**  | /profile/_:profileId_      | Get profile by profileID |
+| **GET**  | /profile                   | Get profile list         |
+| **POST** | /profile                   | Create new profile       |
+| **GET**  | /user                      | Get user list            |
+| **POST** | /user                      | Create new user          |
+| **GET**  | /comment                   | Get comment lists        |
+| **POST** | /comment                   | Create new comment       |
 | **POST** | /comment/_:commentId_/like | Like/unlike feature      |
+
+## Postman
+
+The postman collection is stored at [boo-assessments.postman_collection](./postman/boo-assessments.postman_collection.json)
+
+Import to the [Postman](https://www.postman.com/downloads/) app in order to use.
+
+![postman-example](./public/postman-example.png)

@@ -1,0 +1,277 @@
+{
+	"info": {
+		"_postman_id": "cc316250-37cb-400c-9f44-2099af27ee3c",
+		"name": "boo-assessments",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16604169"
+	},
+	"item": [
+		{
+			"name": "profile",
+			"item": [
+				{
+					"name": "list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/profile",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/profile/507f191e810c19729de860ea",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"profile",
+								"507f191e810c19729de860ea"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create-profile",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"A Martinez\",\n  \"description\": \"Adolph Larrue Martinez III.\",\n  \"mbti\": \"ISFJ\",\n  \"enneagram\": \"9w3\",\n  \"variant\": \"sp/so\",\n  \"tritype\": 725,\n  \"socionics\": \"SEE\",\n  \"sloan\": \"RCOEN\",\n  \"psyche\": \"FEVL\",\n  \"temperaments\": \"TEMP\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/profile",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "comment",
+			"item": [
+				{
+					"name": "list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/comment?sort[numberOfLike]=-1&sort[mbti]",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"comment"
+							],
+							"query": [
+								{
+									"key": "profileId",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "mbti",
+									"value": "ENTJ",
+									"disabled": true
+								},
+								{
+									"key": "enneagram",
+									"value": "7w8",
+									"disabled": true
+								},
+								{
+									"key": "zodiac",
+									"value": "Aries",
+									"disabled": true
+								},
+								{
+									"key": "userId",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "sort[createdAt]",
+									"value": "-1",
+									"disabled": true
+								},
+								{
+									"key": "sort[numberOfLike]",
+									"value": "-1"
+								},
+								{
+									"key": "sort[mbti]",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post-comment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"content\": \"asdasdasdas\",\n  \"profileId\": \"507f191e810c19729de860ea\",\n  \"mbti\": \"ENTJ\",\n  \"enneagram\": \"3w4\",\n  \"zodiac\": \"Aries\",\n  \"userId\": \"6603d3efcf18a1912ad8b1bd\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/comment",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"comment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "like",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"userId\": \"6603cec1269b86ae18ad9fcd\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/comment/:commentId/like",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"comment",
+								":commentId",
+								"like"
+							],
+							"variable": [
+								{
+									"key": "commentId",
+									"value": "6603e515f38ac48939320dfc"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create-user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"user1\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "http://localhost:3000",
+			"type": "string"
+		}
+	]
+}
