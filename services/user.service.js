@@ -1,9 +1,21 @@
 const { User } = require("../models");
 
+/**
+ * @returns {Promise<User[]>}
+ */
 const listUsers = async () => {
   try {
     const users = await User.find();
     return { users };
+  } catch (err) {
+    return { err };
+  }
+};
+
+const getUserById = async (_id) => {
+  try {
+    const user = await User.findById(_id);
+    return { user };
   } catch (err) {
     return { err };
   }
@@ -24,5 +36,6 @@ const createUser = async (data) => {
 
 module.exports = {
   listUsers,
+  getUserById,
   createUser,
 };

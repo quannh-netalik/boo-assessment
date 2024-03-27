@@ -1,6 +1,10 @@
 const express = require("express");
 
-const { commentService } = require("../../services");
+const {
+  commentService,
+  userService,
+  profileService,
+} = require("../../services");
 const errors = require("../../errors");
 
 /**
@@ -46,13 +50,34 @@ const likeComment = async (req, res) => {
   const commentId = req.params._id;
   const userId = req.body.userId;
 
+  const [usr, cmt] = await Promise.all([
+    userService.getUserById(userId),
+    commentService.getCommentById(commentId),
+  ]);
+
+  if (usr.err || cmt.err) {
+    return res.status(errors.serverError.status).send(errors.serverError);
+  }
+
+  if (!usr.user) {
+    return res.status(errors.userNotFound.status).send(errors.userNotFound);
+  }
+
+  if (!cmt.comment) {
+    return res
+      .status(errors.commentNotFound.status)
+      .send(errors.commentNotFound);
+  }
+
   const { comment, err } = await commentService.likeComment({
     commentId,
     userId,
   });
 
   if (!comment) {
-    return res.status(errors.commentNotFound.status).send(errors.commentNotFound);
+    return res
+      .status(errors.commentNotFound.status)
+      .send(errors.commentNotFound);
   }
 
   if (err) {
@@ -67,6 +92,24 @@ const likeComment = async (req, res) => {
  * @param  {express.Response} res
  */
 const postComment = async (req, res) => {
+  const [usr, prf] = await Promise.all([
+    userService.getUserById(req.body.userId),
+    profileService.getProfileById(req.body.profileId),
+  ]);
+  if (usr.err || prf.err) {
+    return res.status(errors.serverError.status).send(errors.serverError);
+  }
+
+  if (!usr.user) {
+    return res.status(errors.userNotFound.status).send(errors.userNotFound);
+  }
+
+  if (!prf.profile) {
+    return res
+      .status(errors.profileNotFound.status)
+      .send(errors.profileNotFound);
+  }
+
   const { comment, err } = await commentService.postComment(req.body);
   if (err) {
     return res.status(errors.serverError.status).send(errors.serverError);

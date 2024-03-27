@@ -154,22 +154,17 @@ const listLikeComment = async (commentId) => {
  * @property {String} commentId
  * @property {String} userId
  * @param {Data} data
- * @returns {Like}
+ * @returns {Promise<Like>}
  */
 const likeComment = async (data) => {
   try {
-    const { comment, err } = await getCommentById(data.commentId);
-    if (!comment || err) {
-      return { comment: null };
-    }
-
     /**
      * Cannot use transaction cause quite complicated to setup replica for mongodb
      */
 
     // 1. Check whether like record has been created
     const _like = await Like.findOne({
-      commentId: comment._id,
+      commentId: data.commentId,
       userId: data.userId,
     });
 
@@ -178,7 +173,7 @@ const likeComment = async (data) => {
     // -> delete like record
     if (!!_like) {
       const updatedComment = await Comment.findOneAndUpdate(
-        { _id: comment._id },
+        { _id: data.commentId },
         {
           $inc: {
             numberOfLike: -1,
@@ -197,7 +192,7 @@ const likeComment = async (data) => {
     // 3. If record not existed -> create like record then attach to comment
     const like = await Like.create(data);
     const updatedComment = await Comment.findOneAndUpdate(
-      { _id: comment._id },
+      { _id: data.commentId },
       {
         $inc: {
           numberOfLike: 1,
@@ -210,7 +205,6 @@ const likeComment = async (data) => {
     );
     return { comment: updatedComment };
   } catch (err) {
-    console.log(err);
     return { err };
   }
 };
@@ -230,6 +224,7 @@ const postComment = async (data) => {
 
 module.exports = {
   listComments,
+  getCommentById,
   likeComment,
   listLikeComment,
   postComment,
