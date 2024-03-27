@@ -1,6 +1,18 @@
 const { Comment } = require("../models");
 
 /**
+ * @returns {Promise<Comment[]>}
+ */
+const listComments = async () => {
+  try {
+    const comments = await Comment.find();
+    return { comments };
+  } catch (err) {
+    return { err };
+  }
+};
+
+/**
  * @param {Object} data
  * @returns {Promise<Comment>}
  */
@@ -14,5 +26,6 @@ const postComment = async (data) => {
 };
 
 module.exports = {
+  listComments,
   postComment,
 };

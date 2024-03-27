@@ -12,6 +12,8 @@ const router = express.Router();
 const commentRouter = (prefix) => {
   prefix.use("/comment", router);
 
+  router.get('/', commentController.listComments);
+
   router.post(
     "/",
     commentValidator.validatePostComment,
