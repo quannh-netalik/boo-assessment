@@ -12,7 +12,16 @@ const router = express.Router();
 const commentRouter = (prefix) => {
   prefix.use("/comment", router);
 
-  router.get('/', commentController.listComments);
+  router.get("/", commentController.listComments);
+
+  router.get("/:_id/like", commentController.listLikeComment);
+
+  router.post(
+    "/:_id/like",
+    commentValidator.validateLikeComment,
+    validateRequest,
+    commentController.likeComment
+  );
 
   router.post(
     "/",

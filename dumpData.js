@@ -50,6 +50,7 @@ const defaultUsers = Object.freeze([
 
 const defaultComments = Object.freeze([
   {
+    _id: "6603e515f38ac48939320dfb",
     content: "asdasdasdas",
     profileId: "507f191e810c19729de860ea",
     mbti: MBTI.ENTJ,
@@ -58,6 +59,7 @@ const defaultComments = Object.freeze([
     userId: "6603d3efcf18a1912ad8b1bb",
   },
   {
+    _id: "6603e515f38ac48939320dfc",
     content: "asdasdas1231231 123123 12asdasd",
     profileId: "6603cf5af37977088f4b4d02",
     mbti: MBTI.ESTP,
@@ -66,6 +68,7 @@ const defaultComments = Object.freeze([
     userId: "6603d3efcf18a1912ad8b1bc",
   },
   {
+    _id: "6603e515f38ac48939320dfa",
     content: "opoipo 123 1po231opi 1op13op1",
     profileId: "6603d26f783bd6ebb767bab8",
     mbti: MBTI.ISTJ,

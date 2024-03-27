@@ -1,4 +1,4 @@
-const { body } = require("express-validator");
+const { body, param } = require("express-validator");
 const { MBTIValues, ENNEAGRAM, ZODIAC } = require("../../constant");
 
 const validatePostComment = [
@@ -13,6 +13,12 @@ const validatePostComment = [
   body("userId").isMongoId().notEmpty().withMessage("userId is required"),
 ];
 
+const validateLikeComment = [
+  param('_id').isMongoId().notEmpty().withMessage("commentId is required"),
+  body('userId').isMongoId().notEmpty().withMessage("userId is required"),
+]
+
 module.exports = {
   validatePostComment,
+  validateLikeComment,
 };

@@ -19,12 +19,20 @@ const getProfileById = async (_id) => {
  */
 const listProfile = async () => {
   try {
-    const profiles = await Profile.find();
+    const profiles = await Profile.find(
+      {},
+      {
+        name: 1,
+        mbti: 1,
+        enneagram: 1,
+        image: 1,
+      }
+    );
     return { profiles };
   } catch (err) {
     return { err };
   }
-}
+};
 
 /**
  *

@@ -33,6 +33,15 @@ const CommentSchema = new mongoose.Schema(
       ref: "users",
       required: true,
     },
+    numberOfLike: {
+      type: Number,
+      default: 0,
+    },
+    likeIds: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "likes",
+      default: [],
+    },
   },
   { timestamps: true }
 );

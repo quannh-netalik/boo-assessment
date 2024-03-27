@@ -13,6 +13,11 @@ exports.pageNotFound = {
   code: "Page not found",
 };
 
+exports.commentNotFound = {
+  status: 404,
+  code: "Comment not found",
+};
+
 exports.serverError = {
   status: 500,
   code: "ServerError",

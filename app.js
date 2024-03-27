@@ -12,7 +12,6 @@ const {
   defaultUsers,
   defaultComments,
 } = require("./dumpData");
-
 const bootstrap = async () => {
   const app = express();
   const port = process.env.PORT || 3000;
